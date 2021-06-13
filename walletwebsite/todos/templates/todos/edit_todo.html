@@ -1,0 +1,68 @@
+{% extends 'todos/base.html' %}
+
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}
+                Tasks
+            {% endblock %}
+        </title>
+    </head>
+
+    <body>
+        {% block topmenu %}
+            <li class="nav-item text-nowrap mr-2"><a class="nav-link" href="{% url 'todos' %}">Tasks</a></li>
+            <li class="breadcrumb-item active" style="color: white;" aria-current="page">Edit task</li>
+        {% endblock %}
+
+        {% block content %}
+            <div class="container mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{% url 'edit-todo' todo.id %}" method="post">
+                            {% include 'authentication/partials/_messages.html' %}
+                            {% csrf_token %}
+
+                            <div class="form-group">
+                                <label for="">Task</label>
+                                <input type="text" class="form-control form-control-sm" name="description" value="{{ values.description }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Deadline</label>
+                                <input type="date" class="form-control form-control-sm" name="deadline" value="{{ values.date|date:'Y-m-d' }}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Status</label>
+                                <select class="form-control" name="status">
+                                    <option selected name="source" value="{{ values.status }}">
+                                            {{ values.status }}
+                                    </option>
+                                    {% for status in statuses %}
+                                        <option name="status" value="{{ status.option }}">
+                                            {{ status.option }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-11 mt-3">
+                                    <input type="submit" value="Update" class="btn btn-outline-success btn-outline-success-sm">
+                                </div>
+                                <div class="col-md-1 mt-3">
+                                    <a href="{% url 'delete-todo' todo.id %}" class="btn btn-outline-danger btn-outline-danger-sm">Delete</a>
+                                </div>
+                            </div>
+
+                         </form>
+                    </div>
+                </div>
+
+            </div>
+        {% endblock %}
+    </body>
+</html>

@@ -1,0 +1,82 @@
+{% extends 'wallet/base.html' %}
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}
+                Wallet
+            {% endblock %}
+        </title>
+    </head>
+    <body>
+
+        {% block topmenu %}
+            <li class="nav-item text-nowrap mr-2"><a class="nav-link" href="{% url 'expenses' %}">Expenses</a></li>
+            <li class="breadcrumb-item active" style="color: white;" aria-current="page">Summary</li>
+        {% endblock %}
+
+        {% block content %}
+            <div class="container mt-3" style="border-style: ridge;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p style="font-weight: bold; padding-left: 25%;">Total expenses in last 30 days: RON {{ total_one_month_expenses }}</p>
+                            <canvas class="mb-1" id="myChart1M" width="400" height="400"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="font-weight: bold; padding-left: 25%;">Total expenses in last 6 months: RON {{ total_six_months_expenses }}</p>
+                            <canvas class="mb-1" id="myChart6M" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-3" style="border-style: ridge;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p style="font-weight: bold; padding-left: 20%;">Total expenses with food in last 30 days: RON {{ total_one_month_food_expenses }}</p>
+                            <canvas class="mb-1" id="myFoodChart1M" width="400" height="400"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="font-weight: bold; padding-left: 20%;">Total expenses with food in last 6 months: RON {{ total_six_months_food_expenses }}</p>
+                            <canvas class="mb-1" id="myFoodChart6M" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-3" style="border-style: ridge;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p style="font-weight: bold; padding-left: 20%;">Total expenses with beverages in last 30 days: RON {{ total_one_month_beverages_expenses }}</p>
+                            <canvas class="mb-1" id="myBeveragesChart1M" width="400" height="400"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="font-weight: bold; padding-left: 20%;">Total expenses with beverages in last 6 months: RON {{ total_six_months_beverages_expenses }}</p>
+                            <canvas class="mb-1" id="myBeveragesChart6M" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-3" style="border-style: ridge;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p style="font-weight: bold; padding-left: 20%;">Total expenses with utilities in last 30 days: RON {{ total_one_month_utilities_expenses }}</p>
+                            <canvas class="mb-1" id="myUtilitiesChart1M" width="400" height="400"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="font-weight: bold; padding-left: 20%;">Total expenses with utilities in last 6 months: RON {{ total_six_months_utilities_expenses }}</p>
+                            <canvas class="mb-1" id="myUtilitiesChart6M" width="400" height="400"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <script src="{% static 'wallet/js/expenses_summary.js' %}"></script>
+        {% endblock %}
+
+    </body>
+</html>

@@ -1,0 +1,59 @@
+{% extends 'wallet/base.html' %}
+
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}
+                Wallet
+            {% endblock %}
+        </title>
+    </head>
+
+    <body>
+        {% block topmenu %}
+            <li class="nav-item text-nowrap mr-2"><a class="nav-link" href="{% url 'incomes' %}">Incomes</a></li>
+            <li class="breadcrumb-item active" style="color: white;" aria-current="page">Add income</li>
+        {% endblock %}
+
+        {% block content %}
+            <div class="container mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{% url 'add-income' %}" method="post">
+                            {% include 'authentication/partials/_messages.html' %}
+                            {% csrf_token %}
+
+                            <div class="form-group">
+                                <label for="">Amount</label>
+                                <input type="number" class="form-control form-control-sm" name="amount" value="{{ values.amount }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Description</label>
+                                <input type="text" class="form-control form-control-sm" name="description" value="{{ values.description }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Source</label>
+                                <select class="form-control" name="source">
+                                    {% for source in sources %}
+                                        <option name="source" value="{{ source.name }}">
+                                            {{ source.name }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="">Date</label>
+                                <input type="date" class="form-control form-control-sm" name="income_date">
+                            </div>
+
+                            <input type="submit" value="Save" class="btn btn-outline-success btn-outline-success-sm">
+                         </form>
+                    </div>
+                </div>
+
+            </div>
+        {% endblock %}
+    </body>
+</html>

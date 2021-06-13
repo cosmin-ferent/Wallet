@@ -1,0 +1,39 @@
+{% extends 'wallet/base.html' %}
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>
+            {% block title %}
+                Wallet
+            {% endblock %}
+        </title>
+    </head>
+    <body>
+
+        {% block topmenu %}
+            <li class="nav-item text-nowrap mr-2"><a class="nav-link" href="{% url 'incomes' %}">Incomes</a></li>
+            <li class="breadcrumb-item active" style="color: white;" aria-current="page">Summary</li>
+        {% endblock %}
+
+        {% block content %}
+            <div class="container mt-3" style="border-style: ridge;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p style="font-weight: bold; padding-left: 25%;">Total incomes in last 30 days: RON {{ total_one_month_incomes }}</p>
+                            <canvas class="mb-1" id="myIncomesChart1M" width="400" height="400"></canvas>
+                        </div>
+                        <div class="col-md-6">
+                            <p style="font-weight: bold; padding-left: 25%;">Total incomes in last 6 months: RON {{ total_six_months_incomes }}</p>
+                            <canvas class="mb-1" id="myIncomesChart6M" width="400" height="400"></canvas>
+                        </div>
+                        <script src="{% static 'wallet/js/incomes_summary.js' %}"></script>
+                    </div>
+                </div>
+            </div>
+        {% endblock %}
+
+    </body>
+</html>
